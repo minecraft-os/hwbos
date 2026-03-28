@@ -1,0 +1,1234 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    user-select: none;
+}
+
+body {
+    font-family: 'Segoe UI', '微软雅黑', sans-serif;
+    overflow: hidden;
+    background: #1a2c3e;
+}
+
+/* ============ 登录界面 ============ */
+.login-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(135deg, #1a2c3e 0%, #0f1a24 100%);
+    z-index: 10000;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.login-container {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-size: cover;
+    background-position: center;
+}
+
+.login-card {
+    width: 400px;
+    background: rgba(32,32,35,0.85);
+    backdrop-filter: blur(20px);
+    border-radius: 24px;
+    padding: 40px;
+    text-align: center;
+    box-shadow: 0 24px 48px rgba(0,0,0,0.3);
+    animation: fadeInUp 0.5s ease;
+}
+
+@keyframes fadeInUp {
+    from { opacity: 0; transform: translateY(30px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+.login-icon img {
+    width: 80px;
+    height: 80px;
+    border-radius: 20px;
+    margin-bottom: 16px;
+}
+
+.login-title {
+    font-size: 32px;
+    font-weight: 600;
+    color: white;
+    margin-bottom: 8px;
+}
+
+.login-subtitle {
+    font-size: 14px;
+    color: rgba(255,255,255,0.6);
+    margin-bottom: 32px;
+}
+
+.login-form {
+    text-align: left;
+}
+
+.input-group {
+    margin-bottom: 16px;
+}
+
+.input-group input {
+    width: 100%;
+    padding: 12px 16px;
+    background: rgba(255,255,255,0.1);
+    border: 1px solid rgba(255,255,255,0.2);
+    border-radius: 12px;
+    color: white;
+    font-size: 14px;
+    outline: none;
+}
+
+.input-group input:focus {
+    border-color: #0078d4;
+    background: rgba(255,255,255,0.15);
+}
+
+.login-error {
+    color: #ff6b6b;
+    font-size: 12px;
+    margin-bottom: 16px;
+    display: none;
+}
+
+.login-buttons {
+    display: flex;
+    gap: 12px;
+    margin-bottom: 20px;
+}
+
+.login-btn-primary {
+    flex: 1;
+    padding: 12px;
+    background: #0078d4;
+    border: none;
+    border-radius: 12px;
+    color: white;
+    font-size: 14px;
+    font-weight: 600;
+    cursor: pointer;
+}
+
+.login-btn-primary:hover {
+    background: #1084e0;
+    transform: translateY(-1px);
+}
+
+.login-btn-secondary {
+    flex: 1;
+    padding: 12px;
+    background: rgba(255,255,255,0.1);
+    border: none;
+    border-radius: 12px;
+    color: white;
+    font-size: 14px;
+    cursor: pointer;
+}
+
+.login-btn-secondary:hover {
+    background: rgba(255,255,255,0.2);
+    transform: translateY(-1px);
+}
+
+.login-tip {
+    text-align: center;
+    font-size: 12px;
+    color: rgba(255,255,255,0.4);
+}
+
+/* ============ 壁纸层 ============ */
+.wallpaper {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(135deg, #1a2c3e 0%, #0f1a24 100%);
+    background-size: cover;
+    background-position: center;
+    z-index: 0;
+}
+
+/* ============ 桌面图标 ============ */
+.desktop {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 48px;
+    padding: 12px;
+    z-index: 1;
+}
+
+.desktop-icon {
+    position: absolute;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 80px;
+    padding: 8px 4px;
+    border-radius: 12px;
+    cursor: pointer;
+    transition: all 0.2s;
+    color: white;
+    text-shadow: 0 1px 2px rgba(0,0,0,0.3);
+    background: rgba(255,255,255,0);
+}
+
+.desktop-icon:hover {
+    background: rgba(255,255,255,0.12);
+    transform: scale(1.02);
+}
+
+.desktop-icon.selected {
+    background: rgba(0,120,212,0.3);
+    border: 1px solid #0078d4;
+}
+
+.desktop-icon .icon {
+    font-size: 40px;
+    margin-bottom: 4px;
+}
+
+.desktop-icon .label {
+    font-size: 11px;
+    text-align: center;
+}
+
+.selection-rect {
+    position: fixed;
+    border: 2px solid #0078d4;
+    background: rgba(0,120,212,0.2);
+    pointer-events: none;
+    z-index: 9999;
+    display: none;
+}
+
+/* ============ 任务栏 ============ */
+.taskbar {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    height: 44px;
+    background: rgba(28,28,30,0.85);
+    backdrop-filter: blur(20px);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 12px;
+    z-index: 100;
+    border-top: 1px solid rgba(255,255,255,0.08);
+}
+
+.taskbar-left {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    flex: 1;
+}
+
+.start-btn {
+    background: rgba(255,255,255,0.1);
+    color: white;
+    border: none;
+    padding: 6px 18px;
+    border-radius: 10px;
+    font-size: 13px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+}
+
+.start-btn::before {
+    content: "🍃";
+    font-size: 14px;
+}
+
+.start-btn:hover {
+    background: rgba(255,255,255,0.2);
+    transform: translateY(-1px);
+}
+
+.taskbar-apps {
+    display: flex;
+    gap: 4px;
+    flex: 1;
+    overflow-x: auto;
+    padding: 0 8px;
+}
+
+.taskbar-app {
+    background: rgba(255,255,255,0.08);
+    padding: 4px 12px;
+    border-radius: 8px;
+    font-size: 11px;
+    cursor: pointer;
+    white-space: nowrap;
+    color: white;
+}
+
+.taskbar-app:hover {
+    background: rgba(255,255,255,0.18);
+}
+
+.taskbar-app.active {
+    background: rgba(0,120,212,0.7);
+}
+
+.taskbar-right {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.system-tray {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    padding: 4px 8px;
+    border-radius: 8px;
+}
+
+.system-tray:hover {
+    background: rgba(255,255,255,0.1);
+}
+
+.tray-icon {
+    font-size: 16px;
+    cursor: pointer;
+    padding: 4px;
+    border-radius: 6px;
+    transition: all 0.2s;
+    min-width: 24px;
+    text-align: center;
+}
+
+.tray-icon:hover {
+    background: rgba(255,255,255,0.15);
+    transform: scale(1.05);
+}
+
+.tray-menu {
+    background: #2d2f36;
+    border-radius: 12px;
+    padding: 8px;
+    min-width: 200px;
+    box-shadow: 0 8px 24px rgba(0,0,0,0.3);
+    border: 1px solid rgba(255,255,255,0.1);
+    backdrop-filter: blur(10px);
+    animation: menuFadeIn 0.15s ease;
+}
+
+@keyframes menuFadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(5px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+#volume-slider {
+    -webkit-appearance: none;
+    appearance: none;
+    height: 4px;
+    background: #3c3f4a;
+    border-radius: 2px;
+    outline: none;
+    cursor: pointer;
+}
+
+#volume-slider::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    width: 12px;
+    height: 12px;
+    background: #0078d4;
+    border-radius: 50%;
+    cursor: pointer;
+}
+
+.clock {
+    font-size: 12px;
+    color: white;
+    background: rgba(0,0,0,0.2);
+    padding: 4px 10px;
+    border-radius: 16px;
+}
+
+.show-desktop-btn {
+    background: rgba(255,255,255,0.1);
+    border: none;
+    color: white;
+    font-size: 12px;
+    cursor: pointer;
+    padding: 4px 10px;
+    border-radius: 8px;
+}
+
+.show-desktop-btn:hover {
+    background: rgba(255,255,255,0.2);
+}
+
+/* ============ 开始菜单 ============ */
+.start-menu {
+    position: fixed;
+    bottom: 52px;
+    left: 12px;
+    width: 420px;
+    background: rgba(32,32,35,0.95);
+    backdrop-filter: blur(30px);
+    border-radius: 16px;
+    box-shadow: 0 20px 40px rgba(0,0,0,0.4);
+    z-index: 200;
+    display: none;
+    overflow: hidden;
+}
+
+.start-menu.show {
+    display: block;
+    animation: menuFadeIn 0.2s ease;
+}
+
+.start-menu-header {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    padding: 16px 20px;
+    background: rgba(255,255,255,0.03);
+    border-bottom: 1px solid rgba(255,255,255,0.05);
+}
+
+.user-avatar img {
+    width: 48px;
+    height: 48px;
+    border-radius: 12px;
+}
+
+.user-name {
+    font-size: 16px;
+    font-weight: 600;
+    color: white;
+}
+
+.user-status {
+    font-size: 11px;
+    color: rgba(255,255,255,0.6);
+}
+
+.start-menu-content {
+    padding: 12px 16px;
+    max-height: 400px;
+    overflow-y: auto;
+}
+
+.section-title {
+    color: rgba(255,255,255,0.7);
+    font-size: 11px;
+    margin-bottom: 10px;
+}
+
+.apps-list {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+}
+
+.app-item {
+    padding: 8px 12px;
+    border-radius: 10px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    color: white;
+}
+
+.app-item:hover {
+    background: rgba(255,255,255,0.08);
+    transform: translateX(4px);
+}
+
+.app-item span:first-child {
+    font-size: 20px;
+}
+
+.app-item span:last-child {
+    font-size: 13px;
+}
+
+.start-menu-footer {
+    display: flex;
+    padding: 10px 16px;
+    background: rgba(0,0,0,0.2);
+    gap: 8px;
+    border-top: 1px solid rgba(255,255,255,0.05);
+}
+
+.start-menu-footer button {
+    flex: 1;
+    padding: 8px;
+    background: rgba(255,255,255,0.06);
+    border: none;
+    border-radius: 10px;
+    color: white;
+    cursor: pointer;
+}
+
+.start-menu-footer button:hover {
+    background: rgba(255,255,255,0.12);
+}
+
+/* ============ 窗口 ============ */
+.windows {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 48px;
+    z-index: 50;
+    pointer-events: none;
+}
+
+.window {
+    position: absolute;
+    background: rgba(32,32,35,0.96);
+    backdrop-filter: blur(20px);
+    border-radius: 12px;
+    box-shadow: 0 20px 40px rgba(0,0,0,0.3);
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+    min-width: 300px;
+    min-height: 200px;
+    pointer-events: auto;
+}
+
+.window-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 6px 12px;
+    background: rgba(0,0,0,0.25);
+    cursor: move;
+    border-bottom: 1px solid rgba(255,255,255,0.05);
+}
+
+.window-title {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    color: white;
+    font-size: 12px;
+}
+
+.window-controls {
+    display: flex;
+    gap: 6px;
+}
+
+.window-controls span {
+    cursor: pointer;
+    font-size: 12px;
+    color: rgba(255,255,255,0.7);
+    width: 26px;
+    height: 26px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 6px;
+}
+
+.window-controls span:hover {
+    background: rgba(255,255,255,0.1);
+    color: white;
+}
+
+.window-controls .close-btn:hover {
+    background: #e81123;
+}
+
+.window-content {
+    flex: 1;
+    padding: 16px;
+    overflow: auto;
+    color: rgba(255,255,255,0.9);
+}
+
+.window::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    right: 0;
+    width: 12px;
+    height: 12px;
+    cursor: se-resize;
+    background: rgba(255,255,255,0.1);
+    border-radius: 0 0 10px 0;
+}
+
+/* ============ 浏览器样式 ============ */
+.browser-toolbar {
+    display: flex;
+    gap: 8px;
+    padding: 8px 12px;
+    background: rgba(0,0,0,0.2);
+    border-bottom: 1px solid rgba(255,255,255,0.1);
+    flex-wrap: wrap;
+}
+
+.browser-nav-buttons, .browser-menu-buttons {
+    display: flex;
+    gap: 4px;
+}
+
+.browser-nav-buttons button, .browser-menu-buttons button {
+    background: rgba(255,255,255,0.1);
+    border: none;
+    color: white;
+    width: 30px;
+    height: 30px;
+    border-radius: 8px;
+    cursor: pointer;
+}
+
+.browser-address-bar {
+    flex: 1;
+    display: flex;
+    gap: 4px;
+}
+
+.browser-url {
+    flex: 1;
+    background: rgba(255,255,255,0.1);
+    border: 1px solid rgba(255,255,255,0.2);
+    border-radius: 20px;
+    padding: 6px 12px;
+    color: white;
+    font-size: 12px;
+    outline: none;
+}
+
+.browser-url:focus {
+    border-color: #0078d4;
+}
+
+.browser-go {
+    background: #0078d4;
+    border: none;
+    color: white;
+    padding: 6px 16px;
+    border-radius: 20px;
+    cursor: pointer;
+}
+
+.browser-bookmarks-bar {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 6px 12px;
+    background: rgba(0,0,0,0.15);
+    border-bottom: 1px solid rgba(255,255,255,0.05);
+    font-size: 11px;
+}
+
+.bookmarks-list {
+    display: flex;
+    gap: 6px;
+    flex-wrap: wrap;
+}
+
+.bookmark-item {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    padding: 3px 8px;
+    background: rgba(255,255,255,0.08);
+    border-radius: 14px;
+    cursor: pointer;
+}
+
+.bookmark-item:hover {
+    background: rgba(255,255,255,0.18);
+}
+
+.bookmark-remove {
+    opacity: 0;
+    font-size: 10px;
+    cursor: pointer;
+    color: #ff6b6b;
+}
+
+.bookmark-item:hover .bookmark-remove {
+    opacity: 1;
+}
+
+/* ============ 右键菜单 ============ */
+.context-menu {
+    position: fixed;
+    background: #2d2f36;
+    border-radius: 8px;
+    box-shadow: 0 4px 16px rgba(0,0,0,0.3);
+    padding: 4px 0;
+    z-index: 10000;
+    min-width: 160px;
+    display: none;
+}
+
+.context-menu-item {
+    padding: 8px 16px;
+    cursor: pointer;
+    color: white;
+    font-size: 13px;
+}
+
+.context-menu-item:hover {
+    background: #0078d4;
+}
+
+.context-menu-divider {
+    height: 1px;
+    background: rgba(255,255,255,0.1);
+    margin: 4px 0;
+}
+
+/* ============ 通知 ============ */
+.notification {
+    position: fixed;
+    bottom: 56px;
+    right: 16px;
+    background: rgba(32,32,35,0.95);
+    backdrop-filter: blur(20px);
+    border-radius: 12px;
+    padding: 12px 18px;
+    min-width: 260px;
+    z-index: 1000;
+    display: none;
+}
+
+.notification.show {
+    display: block;
+    animation: slideIn 0.3s ease;
+}
+
+@keyframes slideIn {
+    from { transform: translateX(100%); opacity: 0; }
+    to { transform: translateX(0); opacity: 1; }
+}
+
+.notification-title {
+    font-weight: 600;
+    color: #0078d4;
+    margin-bottom: 4px;
+}
+
+.notification-message {
+    color: white;
+    font-size: 12px;
+}
+
+/* ============ 设置窗口 ============ */
+.settings-window {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 550px;
+    background: rgba(32,32,35,0.96);
+    backdrop-filter: blur(30px);
+    border-radius: 20px;
+    z-index: 300;
+    display: flex;
+    flex-direction: column;
+}
+
+.settings-window.hidden {
+    display: none;
+}
+
+.settings-header {
+    display: flex;
+    justify-content: space-between;
+    padding: 12px 20px;
+    background: rgba(0,0,0,0.3);
+    border-bottom: 1px solid rgba(255,255,255,0.05);
+}
+
+.settings-header span {
+    color: white;
+    font-weight: 600;
+}
+
+.settings-header button {
+    background: none;
+    border: none;
+    color: rgba(255,255,255,0.7);
+    font-size: 18px;
+    cursor: pointer;
+}
+
+.settings-content {
+    padding: 20px;
+    max-height: 500px;
+    overflow-y: auto;
+}
+
+.settings-tabs {
+    display: flex;
+    gap: 8px;
+    margin-bottom: 20px;
+    border-bottom: 1px solid rgba(255,255,255,0.08);
+    padding-bottom: 10px;
+}
+
+.tab-btn {
+    padding: 8px 18px;
+    background: transparent;
+    border: none;
+    color: rgba(255,255,255,0.6);
+    cursor: pointer;
+    border-radius: 10px;
+}
+
+.tab-btn:hover {
+    background: rgba(255,255,255,0.06);
+    color: white;
+}
+
+.tab-btn.active {
+    background: rgba(0,120,212,0.8);
+    color: white;
+}
+
+.tab-content {
+    display: none;
+}
+
+.tab-content.active {
+    display: block;
+}
+
+.tab-content h3 {
+    color: white;
+    font-size: 16px;
+    margin-bottom: 16px;
+}
+
+.tab-content p {
+    color: rgba(255,255,255,0.7);
+    margin: 10px 0;
+}
+
+.tab-content label {
+    color: white;
+    display: block;
+    margin: 14px 0 6px;
+}
+
+.tab-content select {
+    padding: 8px 14px;
+    border-radius: 10px;
+    border: 1px solid rgba(255,255,255,0.1);
+    background: rgba(0,0,0,0.3);
+    color: white;
+    width: 100%;
+}
+
+.tab-content button {
+    padding: 8px 18px;
+    border-radius: 10px;
+    border: none;
+    background: rgba(0,120,212,0.8);
+    color: white;
+    cursor: pointer;
+    margin-top: 8px;
+    margin-right: 8px;
+}
+
+.tab-content button:hover {
+    background: #0078d4;
+}
+
+/* ============ 滚动条 ============ */
+::-webkit-scrollbar {
+    width: 6px;
+}
+
+::-webkit-scrollbar-track {
+    background: rgba(255,255,255,0.05);
+    border-radius: 10px;
+}
+
+::-webkit-scrollbar-thumb {
+    background: rgba(255,255,255,0.3);
+    border-radius: 10px;
+}
+
+/* ============ 浅色主题 ============ */
+body.light-theme .wallpaper {
+    background: linear-gradient(135deg, #e8f0f5 0%, #d4e0e8 100%);
+}
+
+body.light-theme .taskbar {
+    background: rgba(240,240,245,0.85);
+}
+
+body.light-theme .start-btn, body.light-theme .taskbar-app {
+    color: #1a2c3e;
+}
+
+body.light-theme .clock, body.light-theme .system-tray {
+    color: #1a2c3e;
+    background: rgba(0,0,0,0.05);
+}
+
+body.light-theme .start-menu {
+    background: rgba(255,255,255,0.95);
+}
+
+body.light-theme .user-name, body.light-theme .app-item {
+    color: #1a2c3e;
+}
+
+body.light-theme .window {
+    background: rgba(255,255,255,0.96);
+}
+
+body.light-theme .window-title {
+    color: #1a2c3e;
+}
+
+body.light-theme .window-content {
+    color: #2d2f36;
+}
+
+body.light-theme .context-menu {
+    background: white;
+}
+
+body.light-theme .context-menu-item {
+    color: #1a2c3e;
+}
+
+body.light-theme .context-menu-item:hover {
+    background: #0078d4;
+    color: white;
+}
+
+body.light-theme .tray-menu {
+    background: rgba(255,255,255,0.95);
+    border-color: rgba(0,0,0,0.1);
+}
+
+/* ============ 应用管理样式 ============ */
+.apps-manager-list {
+    max-height: 400px;
+    overflow-y: auto;
+}
+
+.app-manager-item {
+    display: flex;
+    align-items: center;
+    padding: 12px;
+    background: rgba(255,255,255,0.05);
+    border-radius: 10px;
+    margin-bottom: 8px;
+    transition: background 0.2s;
+}
+
+.app-manager-item:hover {
+    background: rgba(255,255,255,0.1);
+}
+
+.app-manager-icon {
+    width: 40px;
+    height: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 24px;
+    margin-right: 12px;
+}
+
+.app-manager-icon img {
+    width: 32px;
+    height: 32px;
+    object-fit: contain;
+}
+
+.app-manager-info {
+    flex: 1;
+}
+
+.app-manager-name {
+    font-weight: 600;
+    color: white;
+    margin-bottom: 4px;
+}
+
+.app-manager-path {
+    font-size: 11px;
+    color: rgba(255,255,255,0.5);
+}
+
+.app-manager-actions {
+    display: flex;
+    gap: 8px;
+}
+
+.app-manager-actions button {
+    padding: 4px 12px;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    font-size: 11px;
+}
+
+.edit-app-btn {
+    background: #5bc0de;
+    color: white;
+}
+
+.delete-app-btn {
+    background: #d9534f;
+    color: white;
+}
+
+.add-app-btn {
+    width: 100%;
+    padding: 10px;
+    background: #5cb85c;
+    color: white;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    margin-bottom: 16px;
+    font-size: 14px;
+}
+
+.add-app-btn:hover {
+    background: #4cae4c;
+}
+
+/* ============ 对话框样式 ============ */
+.dialog-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0,0,0,0.6);
+    z-index: 10000;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.dialog {
+    width: 500px;
+    max-width: 90%;
+    background: #2d2f36;
+    border-radius: 16px;
+    box-shadow: 0 20px 40px rgba(0,0,0,0.4);
+    animation: dialogFadeIn 0.2s ease;
+}
+
+@keyframes dialogFadeIn {
+    from {
+        opacity: 0;
+        transform: scale(0.95);
+    }
+    to {
+        opacity: 1;
+        transform: scale(1);
+    }
+}
+
+.dialog-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 16px 20px;
+    border-bottom: 1px solid rgba(255,255,255,0.1);
+    font-weight: 600;
+    color: white;
+}
+
+.dialog-close {
+    background: none;
+    border: none;
+    color: rgba(255,255,255,0.7);
+    font-size: 20px;
+    cursor: pointer;
+    padding: 4px 8px;
+}
+
+.dialog-close:hover {
+    color: white;
+}
+
+.dialog-content {
+    padding: 20px;
+    max-height: 500px;
+    overflow-y: auto;
+}
+
+.form-group {
+    margin-bottom: 16px;
+}
+
+.form-group label {
+    display: block;
+    color: white;
+    margin-bottom: 6px;
+    font-size: 12px;
+    font-weight: 500;
+}
+
+.form-group input,
+.form-group select {
+    width: 100%;
+    padding: 8px 12px;
+    background: #3c3f4a;
+    border: 1px solid rgba(255,255,255,0.1);
+    border-radius: 8px;
+    color: white;
+    font-size: 13px;
+    outline: none;
+}
+
+.form-group input:focus {
+    border-color: #0078d4;
+}
+
+.browse-btn {
+    margin-top: 6px;
+    padding: 4px 12px;
+    background: #5bc0de;
+    border: none;
+    border-radius: 6px;
+    color: white;
+    cursor: pointer;
+    font-size: 11px;
+}
+
+.icon-preview {
+    width: 48px;
+    height: 48px;
+    background: #3c3f4a;
+    border-radius: 8px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 28px;
+    margin-top: 8px;
+}
+
+.icon-preview img {
+    width: 40px;
+    height: 40px;
+    object-fit: contain;
+}
+
+.dialog-footer {
+    display: flex;
+    justify-content: flex-end;
+    gap: 12px;
+    padding: 16px 20px;
+    border-top: 1px solid rgba(255,255,255,0.1);
+}
+
+.btn-primary {
+    padding: 8px 20px;
+    background: #0078d4;
+    border: none;
+    border-radius: 8px;
+    color: white;
+    cursor: pointer;
+}
+
+.btn-primary:hover {
+    background: #1084e0;
+}
+
+.btn-secondary {
+    padding: 8px 20px;
+    background: #3c3f4a;
+    border: none;
+    border-radius: 8px;
+    color: white;
+    cursor: pointer;
+}
+
+.btn-secondary:hover {
+    background: #4a4e5a;
+}
+
+.builtin-options {
+    background: rgba(0,0,0,0.2);
+    padding: 12px;
+    border-radius: 8px;
+    margin-top: 8px;
+}
+
+.builtin-options input {
+    width: calc(50% - 8px);
+    display: inline-block;
+    margin-right: 8px;
+}
+
+/* 浅色主题 */
+body.light-theme .dialog {
+    background: #ffffff;
+}
+
+body.light-theme .dialog-header {
+    border-bottom-color: rgba(0,0,0,0.1);
+    color: #1a2c3e;
+}
+
+body.light-theme .form-group input,
+body.light-theme .form-group select {
+    background: #f0f0f0;
+    border-color: rgba(0,0,0,0.1);
+    color: #1a2c3e;
+}
+
+body.light-theme .icon-preview {
+    background: #f0f0f0;
+}
+
+body.light-theme .btn-secondary {
+    background: #e0e0e0;
+    color: #1a2c3e;
+}
+
+body.light-theme .builtin-options {
+    background: rgba(0,0,0,0.05);
+}
+
+body.light-theme .app-manager-item {
+    background: rgba(0,0,0,0.05);
+}
+
+body.light-theme .app-manager-name {
+    color: #1a2c3e;
+}
+
+body.light-theme .app-manager-path {
+    color: rgba(0,0,0,0.5);
+}

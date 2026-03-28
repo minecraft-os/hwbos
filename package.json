@@ -1,0 +1,9 @@
+{
+    "name": "HwBOS",
+    "main": "index.html",
+    "window": {
+        "frame": false,
+        "fullscreen": true,
+        "resizable": true
+    }
+}

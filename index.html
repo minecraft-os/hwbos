@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+    <title>HwBOS - 智能桌面系统</title>
+    <link rel="icon" href="https://image2url.com/r2/default/images/1774357399539-a881b8c2-dfa1-40cd-90f3-29ecf075e85a.jpeg">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div id="app">
+        <!-- 登录界面 -->
+        <div id="login-overlay" class="login-overlay">
+            <div id="login-container" class="login-container">
+                <div class="login-card">
+                    <div class="login-icon">
+                        <img src="https://image2url.com/r2/default/images/1774357399539-a881b8c2-dfa1-40cd-90f3-29ecf075e85a.jpeg" alt="HwBOS" style="width: 80px; height: 80px; border-radius: 20px;">
+                    </div>
+                    <div class="login-title">HwBOS</div>
+                    <div class="login-subtitle">字眼操作系统，全面兼容Windows！！</div>
+                    <div class="login-form">
+                        <div class="input-group">
+                            <input type="text" id="login-username" placeholder="用户名" value="user" autofocus>
+                        </div>
+                        <div class="input-group">
+                            <input type="password" id="login-password" placeholder="密码（留空则无需密码）">
+                        </div>
+                        <div id="login-error" class="login-error"></div>
+                        <div class="login-buttons">
+                            <button id="login-btn" class="login-btn-primary">进入桌面</button>
+                            <button id="guest-login-btn" class="login-btn-secondary">访客模式</button>
+                        </div>
+                        <div class="login-tip">✨ 版本 260327-1428 | 数据保存在本地 ✨</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- 桌面内容 -->
+        <div id="desktop-content" style="display: none;">
+            <div id="wallpaper" class="wallpaper"></div>
+            <div id="desktop" class="desktop"></div>
+            
+            <div class="taskbar">
+                <div class="taskbar-left">
+                    <button id="startBtn" class="start-btn">开始</button>
+                    <div id="taskbarApps" class="taskbar-apps"></div>
+                </div>
+                <div class="taskbar-right">
+                    <div id="system-tray" class="system-tray"></div>
+                    <div id="clock" class="clock"></div>
+                    <button id="showDesktop" class="show-desktop-btn">|</button>
+                </div>
+            </div>
+            
+            <div id="startMenu" class="start-menu">
+                <div class="start-menu-header">
+                    <div class="user-avatar">
+                        <img src="https://image2url.com/r2/default/images/1774357399539-a881b8c2-dfa1-40cd-90f3-29ecf075e85a.jpeg" alt="HwBOS" style="width: 48px; height: 48px; border-radius: 12px;">
+                    </div>
+                    <div>
+                        <div class="user-name" id="username">用户</div>
+                        <div class="user-status">活动用户</div>
+                    </div>
+                </div>
+                <div class="start-menu-content">
+                    <div class="section-title">📱 所有应用</div>
+                    <div id="appsList" class="apps-list"></div>
+                </div>
+                <div class="start-menu-footer">
+                    <button id="accountBtn">👤 账户</button>
+                    <button id="settingsBtn">⚙️ 设置</button>
+                    <button id="powerBtn">⏻ 电源</button>
+                </div>
+            </div>
+            
+            <div id="windows" class="windows"></div>
+            <div id="notification" class="notification"></div>
+            
+            <div id="settingsWindow" class="settings-window hidden">
+                <div class="settings-header">
+                    <span>设置</span>
+                    <button id="closeSettings">✖</button>
+                </div>
+                <div class="settings-content">
+                    <div class="settings-tabs">
+                        <button class="tab-btn active" data-tab="general">常规</button>
+                        <button class="tab-btn" data-tab="personal">个性化</button>
+                        <button class="tab-btn" data-tab="apps">应用管理</button>
+                        <button class="tab-btn" data-tab="about">关于</button>
+                    </div>
+                    <div id="general" class="tab-content active">
+                        <h3>系统信息</h3>
+                        <p>系统名称: HwBOS</p>
+                        <p>版本: 1.2.0 (260327-1428)</p>
+                        <p>开发者: SYSTEM-WINOS-RE, 4795_Tester</p>
+                        <button id="windowedMode">窗口化模式</button>
+                        <button id="fullscreenMode">全屏模式</button>
+                    </div>
+                    <div id="personal" class="tab-content">
+                        <h3>个性化设置</h3>
+                        <label>主题:</label>
+                        <select id="themeSelect">
+                            <option value="dark">深色</option>
+                            <option value="light">浅色</option>
+                        </select>
+                        <label>桌面壁纸:</label>
+                        <button id="chooseWallpaper">选择图片</button>
+                        <button id="clearWallpaper">清除壁纸</button>
+                        <label style="margin-top: 20px;">登录页面背景:</label>
+                        <button id="chooseLoginBg">选择登录背景图片</button>
+                        <button id="clearLoginBg">清除登录背景</button>
+                    </div>
+                    <div id="apps" class="tab-content">
+                        <h3>应用管理</h3>
+                        <button id="addAppBtn" class="add-app-btn">+ 添加应用</button>
+                        <div id="apps-manager-list" class="apps-manager-list"></div>
+                    </div>
+                    <div id="about" class="tab-content">
+                        <h3>关于 HwBOS</h3>
+                        <p>自研操作系统</p>
+                        <p>版本: 1.2.0 (Build 12000.1)</p>
+                        <p>构建日期: 260327-1428</p>
+                        <p>Copyright (c) 2026</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <script src="app.js"></script>
+</body>
+</html>
